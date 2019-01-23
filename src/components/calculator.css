@@ -1,0 +1,33 @@
+.calc-container table{
+    width:500px;
+    height: 500px;
+    border-collapse: collapse;
+}
+.calc-container table td{
+    text-align: center;
+    padding-top: 15px;
+    font-size: xx-large;
+    width: calc((500 / 4) - (3*4));
+    height: calc((500 / 4) - (3*4));
+    border: 3px solid aquamarine;
+    cursor: pointer;
+    transition: background-color .51s ease-in-out;
+    font-family: 'Courier New', Courier, monospace;
+}
+.calc-container table td:hover{
+    background-color: gainsboro;
+}
+
+.calc-container .result{
+    width: 500px;
+    height: 100px;
+    border-bottom: 3px solid aquamarine;
+    text-align: right;
+    font-size: xx-large;
+    font-weight: 800;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: whitesmoke;
+}
+.result p{
+    padding: 30px 10px;
+}

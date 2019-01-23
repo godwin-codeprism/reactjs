@@ -1,28 +1,16 @@
 import React, { Component } from 'react';
 import './App.css';
 import Account from "./components/Account"
+import Calculator from "./components/calculator"
 class App extends Component {
   state = { value: 0 }
-
-
   increase() {
-
-
-
-  this.setState({ value: this.state.value + 1 })
-
-
-
+    this.setState({ value: this.state.value + 1 })
   }
   decrease() {
-
-if(this.state.value>0){
-
-
-  this.setState({ value: this.state.value - 1 })
-}
-
-
+    if (this.state.value > 0) {
+      this.setState({ value: this.state.value - 1 })
+    }
   }
   render() {
     return (
@@ -31,12 +19,14 @@ if(this.state.value>0){
         <p>{this.state.value}</p>
         <button onClick={this.increase.bind(this)}> increment</button>
         <button onClick={this.decrease.bind(this)}>Decrement</button>
-        <hr/>
+        <hr />
         <h1>Exerices 1</h1>
         <Account></Account>
+        <hr />
+        <h1>Excersice 2</h1>
+        <Calculator/>
       </div>
     )
   }
 }
-
 export default App;
