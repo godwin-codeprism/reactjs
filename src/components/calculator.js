@@ -7,25 +7,62 @@ class Calculator extends Component {
     }
     enterValue(e) {
         const currentValue = e.currentTarget.innerText;
+        const operators = ["+", "-", "/", "X"];
         switch (currentValue) {
             case "C":
                 this.setState({ value: '' })
                 break;
+            case "+":
+            case "-":
+            case "X":
+            case "/":
+                if(operators.indexOf(this.state.value.substr(this.state.value.length - 1, 1)) !== -1){
+                    this.setState({value: this.replaceAt(this.state.value.length - 1, currentValue, this.state.value) });
+                }
+                else{
+                    if(this.state.value.match(new RegExp("[+, -, /, X]"))){
+                        this.autoCalculate(this.state.value, currentValue);
+                    }else{
+                        this.setState({ value: this.state.value + currentValue })
+                    }
+                }
+                break;
             case "=":
-                this.setState({ value: parseInt(this.state.value.split("+")[0]) + parseInt(this.state.value.split("+")[1]) })
+                this.getAnswer(this.state.value);
                 break;
             default:
                 this.setState({ value: this.state.value + currentValue })
                 break;
         }
+    }
 
-        // if(currentValue == "C"){
-        //     this.setState({value: ''})
-        // }
-        // else{
-        //     this.setState({value: this.state.value + currentValue})
-        // }
+    getAnswer(val){
+        const operator = val.match(new RegExp("[+, -, /, X]"))[0];
+        this.setState({value: this.perfomeOperation(val, operator)});
+    }
 
+    autoCalculate(val, currentValue){
+        const operator = val.match(new RegExp("[+, -, /, X]"))[0];
+        this.setState({value: this.perfomeOperation(val, operator)}, ()=> {
+            this.setState({ value: this.state.value + currentValue });
+        });
+    }
+
+    perfomeOperation(val, operator){
+        switch (operator) {
+            case "+":
+                return parseInt(val.split(operator)[0]) + parseInt(val.split(operator)[1]);
+            case "-":
+                return parseInt(val.split(operator)[0]) - parseInt(val.split(operator)[1]);
+            case "X":
+                return parseInt(val.split(operator)[0]) * parseInt(val.split(operator)[1]);
+            case "/":
+                return parseInt(val.split(operator)[0]) / parseInt(val.split(operator)[1]);
+        }
+    }
+
+    replaceAt(index, replacement, str) {
+        return str.substr(0, index) + replacement+ str.substr(index + replacement.length);
     }
 
     render() {
