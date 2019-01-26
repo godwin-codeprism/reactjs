@@ -15,7 +15,7 @@
     font-family: 'Courier New', Courier, monospace;
 }
 .calc-container table td:hover{
-    background-color: gainsboro;
+    background-color: lightgreen;
 }
 
 .calc-container .result{
@@ -30,4 +30,7 @@
 }
 .result p{
     padding: 30px 10px;
+}
+.active{
+    background-color: lightgreen;
 }
