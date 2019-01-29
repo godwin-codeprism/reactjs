@@ -7,6 +7,7 @@ class Calculator extends Component {
         clickedBtn: null
     }
     timeout = null;
+    calculationEnded= false;
     componentDidMount() {
         document.addEventListener('keydown', this.onKeyPress.bind(this));
         document.addEventListener('keyup', this.onKeyUp.bind(this));
@@ -28,7 +29,12 @@ class Calculator extends Component {
             oprArr = ["/", "*", "-", "+"],
             operators = ["+", "-", "/", "X"];
         if (numArr.indexOf(e.key) !== -1) {
-            this.setState({ value: this.state.value + e.key, clickedBtn: e.key });
+            if(this.calculationEnded){
+                this.setState({ value: e.key, clickedBtn: e.key });
+                this.calculationEnded = false;
+            }else{
+                this.setState({ value: this.state.value + e.key, clickedBtn: e.key });
+            }
         }
         if (oprArr.indexOf(e.key) !== -1) {
             if (operators.indexOf(this.state.value.substr(this.state.value.length - 1, 1)) !== -1) {
@@ -42,6 +48,7 @@ class Calculator extends Component {
                     this.setState({ value: this.state.value + e.key.replace('*', 'X'), clickedBtn: e.key })
                 }
             }
+            this.calculationEnded = false;
         }
         if (e.key === 'Enter') {
             this.setState({ clickedBtn: e.key });
@@ -50,6 +57,7 @@ class Calculator extends Component {
         if (e.key === 'Escape') {
             this.setState({ clickedBtn: e.key });
             this.setState({ value: '' });
+            this.calculationEnded = false;
         }
         if (e.key === 'Backspace') {
             this.setState({ clickedBtn: e.key });
@@ -77,12 +85,19 @@ class Calculator extends Component {
                         this.setState({ value: this.state.value + currentValue })
                     }
                 }
+                this.calculationEnded = false;
                 break;
             case "=":
                 this.getAnswer(this.state.value);
                 break;
             default:
-                this.setState({ value: this.state.value + currentValue })
+                if(this.calculationEnded){
+                    this.setState({ value: currentValue });
+                    this.calculationEnded = false;
+                }else{
+
+                    this.setState({ value: this.state.value + currentValue })
+                }
                 break;
         }
     }
@@ -92,6 +107,7 @@ class Calculator extends Component {
         if (operator) {
             this.setState({ value: this.perfomeOperation(val, operator[0]).toString() });
         }
+        this.calculationEnded = true;
     }
 
     autoCalculate(val, currentValue) {
