@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import './App.css';
 import Account from "./components/Account"
 import Calculator from "./components/calculator"
+import Library from './components/library';
+import MoviesSearch from './components/MovieSearch';
+import Album from './components/Album/Album';
 class App extends Component {
   state = { value: 0 }
   increase() {
@@ -25,6 +28,15 @@ class App extends Component {
         <hr />
         <h1>Excersice 2</h1>
         <Calculator/>
+        <hr/>
+        <h1>Exercise 4</h1>
+        <Library/>
+        <hr/>
+        <h1>Exercise 6</h1>
+        <MoviesSearch/>
+        <hr/>
+        <h1>Exercise 8</h1>
+        <Album/>
       </div>
     )
   }
